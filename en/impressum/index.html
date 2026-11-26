@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="ohne-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -471,12 +471,259 @@ p {
   margin-left: 20px;
   font-weight: 500;
 }
+
+/* ---------- Bewegung ---------- */
+/* Grund: die oberen Kugeln gleiten beim Scrollen langsamer mit, die untere kommt entgegen */
+.k1,
+.k2 {
+  translate: 0 calc(var(--s, 0) * -0.15px);
+}
+.k3 {
+  translate: 0 calc(var(--s, 0) * -0.05px);
+}
+
+/* Logo: Haus und Lächeln zeichnen sich, das Herz springt hinein und schlägt ab und zu */
+.bewegt .l-haus,
+.bewegt .l-laecheln {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: zeichnen 1.1s cubic-bezier(0.6, 0, 0.2, 1) forwards;
+}
+.bewegt .l-laecheln {
+  animation-delay: 0.6s;
+}
+.bewegt .l-herz {
+  transform-box: fill-box;
+  transform-origin: 50% 60%;
+  animation:
+    herzRein 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) 0.9s both,
+    herzSchlag 5s ease-in-out 2.5s infinite;
+}
+@keyframes zeichnen {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes herzRein {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes herzSchlag {
+  0%,
+  82%,
+  100% {
+    transform: scale(1);
+  }
+  86% {
+    transform: scale(1.22);
+  }
+  90% {
+    transform: scale(0.96);
+  }
+  94% {
+    transform: scale(1.14);
+  }
+}
+.marke:hover .l-herz {
+  animation: herzSchlag 0.9s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+/* Hero: Texte kommen nacheinander von unten */
+.bewegt .hero-text > * {
+  animation: hoch 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.bewegt .hero-text > :nth-child(2) {
+  animation-delay: 0.1s;
+}
+.bewegt .hero-text > :nth-child(3) {
+  animation-delay: 0.2s;
+}
+.bewegt .hero-text > :nth-child(4) {
+  animation-delay: 0.3s;
+}
+@keyframes hoch {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Handys: fliegen herein, schweben leicht und neigen sich zur Maus */
+.handys {
+  perspective: 1100px;
+}
+.bewegt .handys {
+  transform-style: preserve-3d;
+}
+.bewegt .handys .handy {
+  transition: rotate 0.4s ease-out;
+}
+.bewegt .handys {
+  --rx: 0deg;
+  --ry: 0deg;
+}
+.bewegt .handys > img {
+  animation:
+    reinfliegen 1s cubic-bezier(0.2, 0.9, 0.2, 1) both,
+    schweben 6s ease-in-out infinite alternate;
+}
+.bewegt .handys > .h1 {
+  animation-delay: 0.25s, 1.3s;
+}
+.bewegt .handys > .h2 {
+  animation-delay: 0.45s, 2s;
+  --von: -60px;
+}
+.bewegt .handys > .h3 {
+  animation-delay: 0.6s, 2.6s;
+  --von: 60px;
+}
+@keyframes reinfliegen {
+  from {
+    opacity: 0;
+    translate: var(--von, 0) 80px;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+@keyframes schweben {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -12px;
+  }
+}
+.bewegt .handys {
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+}
+.bewegt .demo {
+  animation: hoch 0.8s ease-out 1.2s both;
+}
+
+/* Einblenden beim Scrollen */
+.bewegt .zeigen {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  transition:
+    opacity 0.7s ease-out var(--v, 0ms),
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--v, 0ms);
+}
+.bewegt .zeigen.sichtbar {
+  opacity: 1;
+  transform: none;
+}
+
+/* Karten heben sich beim Darüberfahren, das Icon wackelt kurz */
+.karte {
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s ease;
+}
+@media (hover: hover) {
+  .bewegt .raster > .karte.sichtbar:hover,
+  .bewegt .zwei > .karte.sichtbar:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 22px 44px rgba(20, 33, 61, 0.14);
+    transition-delay: 0ms;
+  }
+  .karte:hover .kachel svg {
+    animation: wackeln 0.6s ease-in-out;
+  }
+}
+@keyframes wackeln {
+  0%,
+  100% {
+    transform: none;
+  }
+  25% {
+    transform: rotate(-12deg) scale(1.1);
+  }
+  60% {
+    transform: rotate(8deg) scale(1.05);
+  }
+}
+
+/* Knopf: Glanz läuft darüber, hebt sich beim Darüberfahren */
+.knopf {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.knopf::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+.bewegt .knopf:not(.leise)::after {
+  animation: glanz 4.5s ease-in-out 1.6s infinite;
+}
+@keyframes glanz {
+  0% {
+    transform: translateX(-120%);
+  }
+  30%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+.knopf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(34, 179, 166, 0.42);
+}
+.knopf:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Sprachwahl: weiche Übergänge */
+.sprachen a {
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.sprachen a:hover {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grund span {
+    translate: none;
+  }
+  .karte,
+  .knopf {
+    transition: none;
+  }
+  .karte:hover .kachel svg {
+    animation: none;
+  }
+}
 </style>
 </head>
 <body>
 <div class="grund" aria-hidden="true"><span class="k1"></span><span class="k2"></span><span class="k3"></span></div>
 <header class="kopf">
-  <a class="marke" href="/en/" aria-label="heimwärts, Home"><svg width="34" height="34" viewBox="0 0 120 120" aria-hidden="true"><path d="M14 58 L58 20 L102 58 M26 48 V104 H90 V48" stroke="#14213D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M43 76 Q58 90 73 76" stroke="#14213D" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M98 42 C 84 32 78 24 82 15 C 85 8 94 7 98 14 C 102 7 111 8 114 15 C 118 24 112 32 98 42 Z" fill="#2EC4B6" stroke="#14213D" stroke-width="3" stroke-linejoin="round"/></svg><span>heimwärts</span></a>
+  <a class="marke" href="/en/" aria-label="heimwärts, Home"><svg width="34" height="34" viewBox="0 0 120 120" aria-hidden="true"><path class="l-haus" pathLength="1" d="M14 58 L58 20 L102 58 M26 48 V104 H90 V48" stroke="#14213D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="l-laecheln" pathLength="1" d="M43 76 Q58 90 73 76" stroke="#14213D" stroke-width="8" stroke-linecap="round" fill="none"/><path class="l-herz" d="M98 42 C 84 32 78 24 82 15 C 85 8 94 7 98 14 C 102 7 111 8 114 15 C 118 24 112 32 98 42 Z" fill="#2EC4B6" stroke="#14213D" stroke-width="3" stroke-linejoin="round"/></svg><span>heimwärts</span></a>
   <nav class="sprachen" aria-label="Language"><a href="/impressum/" lang="de" hreflang="de" title="Deutsch">DE</a><a href="/fr/impressum/" lang="fr" hreflang="fr" title="Français">FR</a><a href="/it/impressum/" lang="it" hreflang="it" title="Italiano">IT</a><span aria-current="true">EN</span></nav>
 </header>
 <main>
@@ -499,5 +746,75 @@ p {
   <nav><a href="/en/nutzung/">Terms and conditions</a><a href="/en/datenschutz/">Privacy policy</a><a href="/en/impressum/">Imprint</a><a href="mailto:info@heimwaerts-app.ch">Contact</a></nav>
   <p>Startup in development · Not an official service · © 2026 heimwärts</p>
 </footer>
+<script>// Bewegung für heimwaerts-app.ch: Inhalte beim Scrollen einblenden, Handys neigen, Farbgrund mitscrollen.
+// Ohne JavaScript oder mit „Bewegung reduzieren“ bleibt alles sichtbar und ruhig.
+(function () {
+  let html = document.documentElement;
+  html.classList.remove('ohne-js');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  html.classList.add('bewegt');
+
+  // Einblenden beim Scrollen, Elemente in einer Reihe leicht versetzt
+  let ziele = document.querySelectorAll('main > section > h2, .raster > *, .zwei > *, main > .hinweis, main > .text');
+  ziele.forEach(function (el) {
+    let geschwister = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+    el.classList.add('zeigen');
+    el.style.setProperty('--v', Math.max(0, geschwister) * 90 + 'ms');
+  });
+  if ('IntersectionObserver' in window) {
+    const beobachter = new IntersectionObserver(
+      function (eintraege) {
+        eintraege.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('sichtbar');
+            beobachter.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+    );
+    ziele.forEach(function (el) {
+      beobachter.observe(el);
+    });
+  } else {
+    ziele.forEach(function (el) {
+      el.classList.add('sichtbar');
+    });
+  }
+
+  // Handys folgen leicht der Maus (nur mit Maus, nicht auf dem Handy)
+  let handys = document.querySelector('.handys');
+  if (handys && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let hero = document.querySelector('.hero') || document.body;
+    hero.addEventListener('pointermove', function (e) {
+      let r = handys.getBoundingClientRect();
+      let x = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      let y = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      handys.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg');
+      handys.style.setProperty('--rx', (-y * 10).toFixed(2) + 'deg');
+    });
+    hero.addEventListener('pointerleave', function () {
+      handys.style.setProperty('--ry', '0deg');
+      handys.style.setProperty('--rx', '0deg');
+    });
+  }
+
+  // Farbgrund gleitet beim Scrollen langsamer mit (Tiefe)
+  let grund = document.querySelector('.grund');
+  let wartet = false;
+  window.addEventListener(
+    'scroll',
+    function () {
+      if (wartet || !grund) return;
+      wartet = true;
+      requestAnimationFrame(function () {
+        grund.style.setProperty('--s', String(window.scrollY));
+        wartet = false;
+      });
+    },
+    { passive: true },
+  );
+})();
+</script>
 </body>
 </html>
