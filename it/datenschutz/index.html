@@ -483,18 +483,21 @@ p {
 }
 
 /* Logo: Haus und Lächeln zeichnen sich, das Herz springt hinein und schlägt ab und zu */
-.bewegt .l-haus,
-.bewegt .l-laecheln {
+.auftritt .l-haus,
+.auftritt .l-laecheln {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation: zeichnen 1.1s cubic-bezier(0.6, 0, 0.2, 1) forwards;
 }
-.bewegt .l-laecheln {
+.auftritt .l-laecheln {
   animation-delay: 0.6s;
 }
 .bewegt .l-herz {
   transform-box: fill-box;
   transform-origin: 50% 60%;
+  animation: herzSchlag 5s ease-in-out 1.5s infinite;
+}
+.auftritt .l-herz {
   animation:
     herzRein 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) 0.9s both,
     herzSchlag 5s ease-in-out 2.5s infinite;
@@ -534,16 +537,16 @@ p {
 }
 
 /* Hero: Texte kommen nacheinander von unten */
-.bewegt .hero-text > * {
+.auftritt .hero-text > * {
   animation: hoch 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
-.bewegt .hero-text > :nth-child(2) {
+.auftritt .hero-text > :nth-child(2) {
   animation-delay: 0.1s;
 }
-.bewegt .hero-text > :nth-child(3) {
+.auftritt .hero-text > :nth-child(3) {
   animation-delay: 0.2s;
 }
-.bewegt .hero-text > :nth-child(4) {
+.auftritt .hero-text > :nth-child(4) {
   animation-delay: 0.3s;
 }
 @keyframes hoch {
@@ -572,18 +575,27 @@ p {
   --ry: 0deg;
 }
 .bewegt .handys > img {
+  animation: schweben 6s ease-in-out infinite alternate;
+}
+.bewegt .handys > .h2 {
+  animation-delay: 0.7s;
+}
+.bewegt .handys > .h3 {
+  animation-delay: 1.3s;
+}
+.auftritt .handys > img {
   animation:
     reinfliegen 1s cubic-bezier(0.2, 0.9, 0.2, 1) both,
     schweben 6s ease-in-out infinite alternate;
 }
-.bewegt .handys > .h1 {
+.auftritt .handys > .h1 {
   animation-delay: 0.25s, 1.3s;
 }
-.bewegt .handys > .h2 {
+.auftritt .handys > .h2 {
   animation-delay: 0.45s, 2s;
   --von: -60px;
 }
-.bewegt .handys > .h3 {
+.auftritt .handys > .h3 {
   animation-delay: 0.6s, 2.6s;
   --von: 60px;
 }
@@ -611,7 +623,7 @@ p {
   transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform: rotateX(var(--rx)) rotateY(var(--ry));
 }
-.bewegt .demo {
+.auftritt .demo {
   animation: hoch 0.8s ease-out 1.2s both;
 }
 
@@ -718,6 +730,43 @@ p {
     animation: none;
   }
 }
+
+.bewegt .zeigen.sofort {
+  transition: none;
+}
+
+/* Weicher Seitenwechsel (z. B. Sprache): Seiten blenden ineinander, Kopfzeile und Grund bleiben stehen */
+@view-transition {
+  navigation: auto;
+}
+.kopf {
+  view-transition-name: kopf;
+}
+.grund {
+  view-transition-name: grund;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: ease;
+}
+::view-transition-group(kopf),
+::view-transition-group(grund) {
+  animation-duration: 0.35s;
+}
+/* Aktive Sprache: das weisse Feld gleitet zur neuen Sprache */
+.sprachen span[aria-current] {
+  view-transition-name: sprache-aktiv;
+}
+::view-transition-group(sprache-aktiv) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -766,12 +815,57 @@ p {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   html.classList.add('bewegt');
 
+  // Seitenwechsel innerhalb der Webseite: kein Auftritt mehr, Sprachwechsel behält die Scroll-Position
+  let intern = false;
+  let merkScroll = null;
+  try {
+    intern = sessionStorage.getItem('hw-intern') === '1';
+    merkScroll = sessionStorage.getItem('hw-scroll');
+    sessionStorage.removeItem('hw-scroll');
+  } catch {
+    // Speicher nicht verfügbar: einfach normal starten
+  }
+  if (!intern) html.classList.add('auftritt');
+  if (merkScroll !== null) {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    const ziel = Number(merkScroll) || 0;
+    window.scrollTo(0, ziel);
+    // Manche Browser setzen die Position beim Laden nochmals zurück
+    requestAnimationFrame(function () {
+      if (window.scrollY !== ziel) window.scrollTo(0, ziel);
+    });
+    window.addEventListener('load', function () {
+      if (Math.abs(window.scrollY - ziel) > 2) window.scrollTo(0, ziel);
+    });
+  }
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest && e.target.closest('a[href^="/"]');
+    if (!link) return;
+    try {
+      sessionStorage.setItem('hw-intern', '1');
+      if (link.closest('.sprachen')) sessionStorage.setItem('hw-scroll', String(window.scrollY));
+    } catch {
+      // egal
+    }
+  });
+
   // Einblenden beim Scrollen, Elemente in einer Reihe leicht versetzt
   let ziele = document.querySelectorAll('main > section > h2, .raster > *, .zwei > *, main > .hinweis, main > .text');
   ziele.forEach(function (el) {
     let geschwister = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
     el.classList.add('zeigen');
+    // Nach einem Seitenwechsel ist, was schon im Bild ist, sofort da
+    if (intern && el.getBoundingClientRect().top < window.innerHeight) {
+      el.classList.add('sofort', 'sichtbar');
+    }
     el.style.setProperty('--v', Math.max(0, geschwister) * 90 + 'ms');
+  });
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      document.querySelectorAll('.sofort').forEach(function (el) {
+        el.classList.remove('sofort');
+      });
+    });
   });
   if ('IntersectionObserver' in window) {
     const beobachter = new IntersectionObserver(
