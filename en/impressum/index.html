@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Imprint · heimwärts</title>
+<meta name="description" content="Who is behind heimwärts">
+<meta name="theme-color" content="#F4F8F9">
+<meta property="og:title" content="Imprint · heimwärts">
+<meta property="og:description" content="Who is behind heimwärts">
+<meta property="og:image" content="https://heimwaerts-app.ch/bilder/uebersicht-en.jpg">
+<link rel="canonical" href="https://heimwaerts-app.ch/en/impressum/">
+<link rel="alternate" hreflang="de" href="https://heimwaerts-app.ch/impressum/">
+<link rel="alternate" hreflang="fr" href="https://heimwaerts-app.ch/fr/impressum/">
+<link rel="alternate" hreflang="it" href="https://heimwaerts-app.ch/it/impressum/">
+<link rel="alternate" hreflang="en" href="https://heimwaerts-app.ch/en/impressum/">
+<link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/icon.png">
+<style>/* Webseite heimwärts: Glas-Stil wie in der App (Farben aus src/ui/theme.ts). Bewusst nur heller Look. */
+:root {
+  color-scheme: light;
+  --navy: #14213d;
+  --navy-weich: #4a5672;
+  --tuerkis: #2ec4b6;
+  --tuerkis-dunkel: #0f7f74;
+  --grund: #f4f8f9;
+  --glas: rgba(255, 255, 255, 0.55);
+  --glas-rand: rgba(255, 255, 255, 0.8);
+  --schrift: -apple-system, 'SF Pro Text', 'Segoe UI', system-ui, Roboto, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--grund);
+  color: var(--navy);
+  font: 17px/1.55 var(--schrift);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+a {
+  color: var(--tuerkis-dunkel);
+}
+img {
+  max-width: 100%;
+}
+
+/* Bewegter Farbgrund: drei weiche Kugeln, treiben langsam */
+.grund {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+.grund span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.75;
+}
+.k1 {
+  width: 520px;
+  height: 520px;
+  background: #5fe0d2;
+  top: -160px;
+  left: -140px;
+  animation: t1 18s ease-in-out infinite alternate;
+}
+.k2 {
+  width: 460px;
+  height: 460px;
+  background: #7cc4ff;
+  top: 30vh;
+  right: -180px;
+  animation: t2 21s ease-in-out infinite alternate;
+}
+.k3 {
+  width: 520px;
+  height: 520px;
+  background: #ffd9a0;
+  bottom: -200px;
+  left: 20vw;
+  animation: t3 22s ease-in-out infinite alternate;
+  opacity: 0.55;
+}
+@keyframes t1 {
+  to {
+    transform: translate(80px, 60px) scale(1.1);
+  }
+}
+@keyframes t2 {
+  to {
+    transform: translate(-70px, 90px) scale(0.92);
+  }
+}
+@keyframes t3 {
+  to {
+    transform: translate(90px, -70px) scale(1.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grund span {
+    animation: none;
+  }
+}
+
+.glas {
+  background: var(--glas);
+  border: 1px solid var(--glas-rand);
+  border-radius: 26px;
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 34px rgba(20, 33, 61, 0.08);
+}
+
+.kopf,
+main,
+.fuss {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-inline: max(16px, env(safe-area-inset-left));
+}
+.kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 18px;
+}
+.marke {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--navy);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.4px;
+  min-height: 44px;
+}
+.sprachen {
+  display: flex;
+  gap: 2px;
+  background: var(--glas);
+  border: 1px solid var(--glas-rand);
+  border-radius: 999px;
+  padding: 3px;
+}
+.sprachen a,
+.sprachen span {
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  min-height: 36px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--navy-weich);
+}
+.sprachen span {
+  background: #fff;
+  color: var(--navy);
+  box-shadow: 0 2px 8px rgba(20, 33, 61, 0.1);
+}
+
+main {
+  display: grid;
+  gap: 28px;
+  padding-bottom: 40px;
+}
+section h2,
+.karte h2 {
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin: 0 0 14px;
+}
+h1 {
+  font-size: clamp(34px, 6vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  margin: 8px 0 16px;
+}
+h3 {
+  font-size: 19px;
+  margin: 12px 0 6px;
+  letter-spacing: -0.2px;
+}
+p {
+  margin: 0 0 12px;
+}
+.gross {
+  font-size: 19px;
+  color: var(--navy-weich);
+  max-width: 34em;
+}
+.klein {
+  font-size: 14px;
+  color: var(--navy-weich);
+}
+.etikett {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--tuerkis-dunkel);
+  margin: 0;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 24px;
+  align-items: center;
+  padding-top: 12px;
+}
+.aktionen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 20px;
+}
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #3fd3c2, #22b3a6);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(34, 179, 166, 0.35);
+}
+.knopf.leise {
+  background: #fff;
+  color: var(--navy);
+  box-shadow: 0 4px 14px rgba(20, 33, 61, 0.1);
+  min-height: 46px;
+  margin-top: 12px;
+}
+.bald {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy-weich);
+}
+
+.handys {
+  position: relative;
+  height: 560px;
+}
+.handy {
+  position: absolute;
+  width: 230px;
+  height: auto;
+  border-radius: 34px;
+  border: 7px solid var(--navy);
+  background: #fff;
+  box-shadow: 0 30px 60px rgba(20, 33, 61, 0.22);
+}
+.h1 {
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.h2 {
+  left: 2%;
+  top: 60px;
+  transform: rotate(-7deg);
+  opacity: 0.95;
+}
+.h3 {
+  right: 2%;
+  top: 60px;
+  transform: rotate(7deg);
+  opacity: 0.95;
+}
+
+.raster {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.karte {
+  padding: 22px;
+}
+.karte p {
+  color: var(--navy-weich);
+}
+.kachel {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+}
+.ton0 {
+  background: #d6f5ec;
+  color: #0e6e68;
+}
+.ton1 {
+  background: #fff1d1;
+  color: #a86a00;
+}
+.ton2 {
+  background: #ffe6d5;
+  color: #b4561b;
+}
+.ton3 {
+  background: #ddeeff;
+  color: #2f6fb0;
+}
+.zwei {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.gross-karte h2 {
+  margin-top: 14px;
+}
+.liste {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.liste li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 600;
+}
+.liste svg {
+  color: var(--tuerkis-dunkel);
+  flex: none;
+}
+.chips {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chips li {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.hinweis {
+  border-left: 5px solid var(--tuerkis);
+}
+.hinweis h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.text {
+  max-width: 760px;
+  width: 100%;
+  margin: 8px auto 0;
+  padding: 28px;
+}
+.text h1 {
+  font-size: clamp(30px, 5vw, 42px);
+}
+.text h2 {
+  font-size: 20px;
+  margin: 22px 0 6px;
+}
+.text p {
+  color: var(--navy);
+}
+
+.fuss {
+  padding-block: 24px 40px;
+  border-top: 1px solid rgba(20, 33, 61, 0.1);
+}
+.fuss nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+.fuss nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+}
+.fuss p {
+  font-size: 14px;
+  color: var(--navy-weich);
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .handys {
+    height: 470px;
+  }
+  .handy {
+    width: 190px;
+    border-radius: 28px;
+    border-width: 6px;
+  }
+  .raster {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+  .zwei,
+  .raster {
+    grid-template-columns: 1fr;
+  }
+  .handys {
+    height: 400px;
+  }
+  .handy {
+    width: 160px;
+  }
+  .h2 {
+    left: -4%;
+  }
+  .h3 {
+    right: -4%;
+  }
+  .text {
+    padding: 22px 18px;
+  }
+}
+
+/* Hinweis unter den Demo-Bildern und Punkte-Liste */
+.handys {
+  margin: 0 0 36px;
+}
+.demo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -30px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy-weich);
+}
+.liste.punkte li {
+  display: list-item;
+  list-style: disc;
+  margin-left: 20px;
+  font-weight: 500;
+}
+</style>
+</head>
+<body>
+<div class="grund" aria-hidden="true"><span class="k1"></span><span class="k2"></span><span class="k3"></span></div>
+<header class="kopf">
+  <a class="marke" href="/en/" aria-label="heimwärts, Home"><svg width="34" height="34" viewBox="0 0 120 120" aria-hidden="true"><path d="M14 58 L58 20 L102 58 M26 48 V104 H90 V48" stroke="#14213D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M43 76 Q58 90 73 76" stroke="#14213D" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M98 42 C 84 32 78 24 82 15 C 85 8 94 7 98 14 C 102 7 111 8 114 15 C 118 24 112 32 98 42 Z" fill="#2EC4B6" stroke="#14213D" stroke-width="3" stroke-linejoin="round"/></svg><span>heimwärts</span></a>
+  <nav class="sprachen" aria-label="Language"><a href="/impressum/" lang="de" hreflang="de" title="Deutsch">DE</a><a href="/fr/impressum/" lang="fr" hreflang="fr" title="Français">FR</a><a href="/it/impressum/" lang="it" hreflang="it" title="Italiano">IT</a><span aria-current="true">EN</span></nav>
+</header>
+<main>
+
+<article class="glas karte text">
+  <h1>Imprint</h1>
+  <p class="klein">Version: 26.11.2026</p>
+  <h2>Publisher</h2>
+  <p>Team heimwärts: Janis, Noé &amp; Luc<br><a href="mailto:info@heimwaerts-app.ch">info@heimwaerts-app.ch</a></p>
+  <h2>Project</h2>
+  <p>heimwärts is a Swiss startup in the process of being founded. There is no registered company yet. The app is in development and not yet a commercial service. We do not yet work with any municipalities or authorities.</p>
+  <h2>Sources</h2>
+  <p>Municipality info: official websites of the municipalities and the canton of St. Gallen. List of municipalities: npm package swiss-zipcodes (MIT licence), based on data from the Federal Statistical Office.</p>
+  <h2>Software</h2>
+  <p>Built with Expo and React Native and other open-source packages. Their licences apply.</p>
+  <p><a class="knopf leise" href="/en/">Home</a></p>
+</article>
+</main>
+<footer class="fuss">
+  <nav><a href="/en/nutzung/">Terms and conditions</a><a href="/en/datenschutz/">Privacy policy</a><a href="/en/impressum/">Imprint</a><a href="mailto:info@heimwaerts-app.ch">Contact</a></nav>
+  <p>Startup in development · Not an official service · © 2026 heimwärts</p>
+</footer>
+</body>
+</html>
