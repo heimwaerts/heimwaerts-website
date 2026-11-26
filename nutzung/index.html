@@ -735,23 +735,20 @@ p {
   transition: none;
 }
 
-/* Weicher Seitenwechsel (z. B. Sprache): Seiten blenden ineinander, Kopfzeile und Grund bleiben stehen */
+/* Weicher Seitenwechsel (z. B. Sprache): Inhalt blendet über, Kopfzeile bleibt stehen.
+   Der Farbgrund läuft auf jeder Seite synchron weiter (siehe webseite-bewegung.js), darum ändert er sich nicht. */
 @view-transition {
   navigation: auto;
 }
 .kopf {
   view-transition-name: kopf;
 }
-.grund {
-  view-transition-name: grund;
-}
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.35s;
   animation-timing-function: ease;
 }
-::view-transition-group(kopf),
-::view-transition-group(grund) {
+::view-transition-group(kopf) {
   animation-duration: 0.35s;
 }
 /* Aktive Sprache: das weisse Feld gleitet zur neuen Sprache */
@@ -818,7 +815,18 @@ p {
 <script>// Bewegung für heimwaerts-app.ch: Inhalte beim Scrollen einblenden, Handys neigen, Farbgrund mitscrollen.
 // Ohne JavaScript oder mit „Bewegung reduzieren“ bleibt alles sichtbar und ruhig.
 (function () {
-  let html = document.documentElement;
+  const html = document.documentElement;
+
+  // Farbkugeln nach der Uhr ausrichten: Auf jeder Seite stehen sie gleich, ein Seitenwechsel ändert den Grund nicht
+  const jetzt = Date.now() / 1000;
+  [
+    ['.k1', 18],
+    ['.k2', 21],
+    ['.k3', 22],
+  ].forEach(function (k) {
+    const kugel = document.querySelector('.grund ' + k[0]);
+    if (kugel) kugel.style.animationDelay = -(jetzt % (k[1] * 2)) + 's';
+  });
   html.classList.remove('ohne-js');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   html.classList.add('bewegt');
