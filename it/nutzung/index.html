@@ -1696,6 +1696,48 @@ p {
   margin-top: 4px;
 }
 
+/* Social Media in der Fusszeile */
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-bottom: 10px;
+}
+.social > span {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--navy-weich);
+}
+.social nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.fuss .social nav a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  color: var(--navy);
+  background: var(--glas);
+  border: 1px solid var(--glas-rand);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.fuss .social nav a:hover,
+.fuss .social nav a:focus-visible {
+  transform: translateY(-2px);
+  background: #2ec4b6;
+  color: #fff;
+}
+
 @media (prefers-color-scheme: dark) {
 /* Dunkles Design. :root:not([data-theme="light"]) wird beim Erzeugen ersetzt: einmal für die Geräte-Einstellung,
    einmal für die eigene Wahl im Menü (data-theme="dark"). */
@@ -1898,6 +1940,7 @@ p {
   opacity: 0.5;
 }
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"heimwärts","url":"https://heimwaerts-app.ch/","logo":"https://heimwaerts-app.ch/signatur/heimwaerts-logo.png","email":"info@heimwaerts-app.ch","sameAs":["https://www.instagram.com/heimwaertsapp","https://www.facebook.com/heimwaertsapp","https://www.linkedin.com/company/heimwaertsapp","https://www.youtube.com/@heimwaertsapp","https://www.threads.net/@heimwaertsapp","https://x.com/heimwaertsapp","https://www.pinterest.com/heimwaertsapp"]}</script>
 </head>
 <body>
 <div class="grund" aria-hidden="true"><span class="k1"></span><span class="k2"></span><span class="k3"></span></div>
@@ -1957,6 +2000,10 @@ p {
 </article>
 </main>
 <footer class="fuss">
+  <div class="social">
+    <span>Seguici</span>
+    <nav aria-label="Seguici"><a href="https://www.instagram.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Instagram" title="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3.5 H16.5 A4 4 0 0 1 20.5 7.5 V16.5 A4 4 0 0 1 16.5 20.5 H7.5 A4 4 0 0 1 3.5 16.5 V7.5 A4 4 0 0 1 7.5 3.5 Z M12 8.2 A3.8 3.8 0 1 0 12 15.8 A3.8 3.8 0 1 0 12 8.2 Z M17 6.9 V7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.facebook.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Facebook" title="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3.5 H17 V7 H15 A1 1 0 0 0 14 8 V10.5 H17 L16.5 14 H14 V21 H10.5 V14 H8 V10.5 H10.5 V7.5 A4 4 0 0 1 14.5 3.5 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/company/heimwaertsapp" target="_blank" rel="me noopener" aria-label="LinkedIn" title="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.5 H18.5 A2 2 0 0 1 20.5 5.5 V18.5 A2 2 0 0 1 18.5 20.5 H5.5 A2 2 0 0 1 3.5 18.5 V5.5 A2 2 0 0 1 5.5 3.5 Z M8 10.5 V16.5 M8 7.5 V7.6 M11.5 16.5 V10.5 M11.5 13 A2.5 2.5 0 0 1 16.5 13 V16.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.youtube.com/@heimwaertsapp" target="_blank" rel="me noopener" aria-label="YouTube" title="YouTube"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5 H18 A3.5 3.5 0 0 1 21.5 9 V15 A3.5 3.5 0 0 1 18 18.5 H6 A3.5 3.5 0 0 1 2.5 15 V9 A3.5 3.5 0 0 1 6 5.5 Z M10 9 L15 12 L10 15 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.threads.net/@heimwaertsapp" target="_blank" rel="me noopener" aria-label="Threads" title="Threads"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 11 C16 7.5 13.5 6.5 11.5 6.8 C8.6 7.2 7.5 9.8 7.5 12 C7.5 15.5 9.5 17.5 12.5 17.5 C15 17.5 17 16 17 13.8 C17 11.8 15.3 11 13.5 11 C11.5 11 10.2 12 10.2 13.3 C10.2 14.6 11.4 15.2 12.5 15.1 C14.3 15 15.3 13.6 15.3 11.5 M12 21 A9 9 0 1 1 21 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://x.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="X" title="X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4 L19.5 20 M19.5 4 L4.5 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.pinterest.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Pinterest" title="Pinterest"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 A8.5 8.5 0 1 0 12 20.5 A8.5 8.5 0 1 0 12 3.5 Z M10.5 20 L12.2 13 M11 13.5 C12.5 15 16 14 16 10.5 C16 8 14 6.8 12 6.8 C9.5 6.8 8 8.5 8 10.3 C8 11.3 8.4 12 9 12.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav>
+  </div>
   <nav><a href="/it/nutzung/">CG e condizioni d’uso</a><a href="/it/datenschutz/">Protezione dei dati</a><a href="/it/impressum/">Note legali</a><a href="mailto:info@heimwaerts-app.ch">Contatto</a></nav>
   <p>Startup in sviluppo · Non è un’offerta ufficiale · © 2026 heimwärts</p>
 </footer>
