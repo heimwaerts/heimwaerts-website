@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>À propos · heimwärts</title>
 <meta name="description" content="Qui se cache derrière heimwärts : une jeune équipe suisse.">
-<meta name="theme-color" content="#F4F8F9">
+<meta name="theme-color" content="#F4F8F9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1424" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('hw-thema');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
 <meta property="og:title" content="À propos · heimwärts">
 <meta property="og:description" content="Qui se cache derrière heimwärts : une jeune équipe suisse.">
 <meta property="og:image" content="https://heimwaerts-app.ch/bilder/uebersicht-fr.jpg">
@@ -1614,12 +1617,280 @@ p {
 .demo-bereich {
   padding-top: 8px;
 }
+
+/* Das Demo-Handy zeigt immer die helle App */
+.proto {
+  --navy: #14213d;
+  --navy-weich: #4a5672;
+  --tuerkis-dunkel: #0f7f74;
+  color-scheme: light;
+}
+
+/* Regler für das dunkle Design im Menü */
+.thema-zeile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 12px;
+  margin-top: 6px;
+  border: 0;
+  border-top: 1px solid rgba(127, 140, 160, 0.2);
+  background: none;
+  font: inherit;
+  font-weight: 650;
+  color: var(--navy);
+  cursor: pointer;
+  border-radius: 0 0 14px 14px;
+}
+.thema-zeile .links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.thema-zeile svg {
+  color: var(--tuerkis-dunkel);
+}
+.regler {
+  position: relative;
+  width: 50px;
+  height: 30px;
+  border-radius: 15px;
+  background: rgba(127, 140, 160, 0.35);
+  flex: none;
+  transition: background 0.25s ease;
+}
+.regler::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.thema-zeile[aria-checked='true'] .regler {
+  background: #2ec4b6;
+}
+.thema-zeile[aria-checked='true'] .regler::after {
+  transform: translateX(20px);
+}
+.ohne-js .thema-zeile {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+/* Dunkles Design. :root:not([data-theme="light"]) wird beim Erzeugen ersetzt: einmal für die Geräte-Einstellung,
+   einmal für die eigene Wahl im Menü (data-theme="dark"). */
+:root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --navy: #e8eef7;
+  --navy-weich: #a9b5ca;
+  --tuerkis-dunkel: #5fe0d2;
+  --grund: #0c1424;
+  --glas: rgba(28, 40, 64, 0.55);
+  --glas-rand: rgba(255, 255, 255, 0.1);
+}
+:root:not([data-theme="light"]) body {
+  background: var(--grund);
+}
+:root:not([data-theme="light"]) .grund span {
+  opacity: 0.38;
+}
+:root:not([data-theme="light"]) .k1 {
+  background: #1aa89b;
+}
+:root:not([data-theme="light"]) .k2 {
+  background: #2f6fb0;
+}
+:root:not([data-theme="light"]) .k3 {
+  background: #5b4bc4;
+  opacity: 0.3;
+}
+:root:not([data-theme="light"]) .glas {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 34px rgba(0, 0, 0, 0.35);
+}
+:root:not([data-theme="light"]) .ton0 {
+  background: rgba(46, 196, 182, 0.18);
+  color: #6ee7da;
+}
+:root:not([data-theme="light"]) .ton1 {
+  background: rgba(255, 200, 87, 0.16);
+  color: #ffd27a;
+}
+:root:not([data-theme="light"]) .ton2 {
+  background: rgba(255, 122, 107, 0.16);
+  color: #ff9e92;
+}
+:root:not([data-theme="light"]) .ton3 {
+  background: rgba(90, 169, 230, 0.18);
+  color: #8cc4f2;
+}
+:root:not([data-theme="light"]) .sprachen span {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: none;
+}
+:root:not([data-theme="light"]) .sprachen a:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+:root:not([data-theme="light"]) .knopf.leise {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--navy);
+  box-shadow: none;
+}
+:root:not([data-theme="light"]) .knopf {
+  box-shadow: 0 10px 24px rgba(34, 179, 166, 0.25);
+}
+:root:not([data-theme="light"]) .handy {
+  border-color: #24324f;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+:root:not([data-theme="light"]) .fuss {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+:root:not([data-theme="light"]) .menue > summary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+:root:not([data-theme="light"]) .menue-feld {
+  background: rgba(18, 28, 48, 0.96);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+:root:not([data-theme="light"]) .menue-feld a:hover,
+:root:not([data-theme="light"]) .menue-feld a:focus-visible {
+  background: rgba(95, 224, 210, 0.12);
+}
+:root:not([data-theme="light"]) .menue-feld .menue-sprachen a {
+  background: rgba(255, 255, 255, 0.06);
+}
+:root:not([data-theme="light"]) .menue-feld .menue-sprachen span {
+  background: #e8eef7;
+  color: #0c1424;
+}
+:root:not([data-theme="light"]) .demo-hinweis {
+  background: rgba(255, 200, 87, 0.14);
+  color: #ffd27a;
+}
+:root:not([data-theme="light"]) .proto {
+  border-color: #24324f;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
+}
+:root:not([data-theme="light"]) .avatar::after {
+  opacity: 0.5;
+}
+
+}
+/* Dunkles Design. :root[data-theme="dark"] wird beim Erzeugen ersetzt: einmal für die Geräte-Einstellung,
+   einmal für die eigene Wahl im Menü (data-theme="dark"). */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --navy: #e8eef7;
+  --navy-weich: #a9b5ca;
+  --tuerkis-dunkel: #5fe0d2;
+  --grund: #0c1424;
+  --glas: rgba(28, 40, 64, 0.55);
+  --glas-rand: rgba(255, 255, 255, 0.1);
+}
+:root[data-theme="dark"] body {
+  background: var(--grund);
+}
+:root[data-theme="dark"] .grund span {
+  opacity: 0.38;
+}
+:root[data-theme="dark"] .k1 {
+  background: #1aa89b;
+}
+:root[data-theme="dark"] .k2 {
+  background: #2f6fb0;
+}
+:root[data-theme="dark"] .k3 {
+  background: #5b4bc4;
+  opacity: 0.3;
+}
+:root[data-theme="dark"] .glas {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 34px rgba(0, 0, 0, 0.35);
+}
+:root[data-theme="dark"] .ton0 {
+  background: rgba(46, 196, 182, 0.18);
+  color: #6ee7da;
+}
+:root[data-theme="dark"] .ton1 {
+  background: rgba(255, 200, 87, 0.16);
+  color: #ffd27a;
+}
+:root[data-theme="dark"] .ton2 {
+  background: rgba(255, 122, 107, 0.16);
+  color: #ff9e92;
+}
+:root[data-theme="dark"] .ton3 {
+  background: rgba(90, 169, 230, 0.18);
+  color: #8cc4f2;
+}
+:root[data-theme="dark"] .sprachen span {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: none;
+}
+:root[data-theme="dark"] .sprachen a:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+:root[data-theme="dark"] .knopf.leise {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--navy);
+  box-shadow: none;
+}
+:root[data-theme="dark"] .knopf {
+  box-shadow: 0 10px 24px rgba(34, 179, 166, 0.25);
+}
+:root[data-theme="dark"] .handy {
+  border-color: #24324f;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+:root[data-theme="dark"] .fuss {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+:root[data-theme="dark"] .menue > summary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+:root[data-theme="dark"] .menue-feld {
+  background: rgba(18, 28, 48, 0.96);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+:root[data-theme="dark"] .menue-feld a:hover,
+:root[data-theme="dark"] .menue-feld a:focus-visible {
+  background: rgba(95, 224, 210, 0.12);
+}
+:root[data-theme="dark"] .menue-feld .menue-sprachen a {
+  background: rgba(255, 255, 255, 0.06);
+}
+:root[data-theme="dark"] .menue-feld .menue-sprachen span {
+  background: #e8eef7;
+  color: #0c1424;
+}
+:root[data-theme="dark"] .demo-hinweis {
+  background: rgba(255, 200, 87, 0.14);
+  color: #ffd27a;
+}
+:root[data-theme="dark"] .proto {
+  border-color: #24324f;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
+}
+:root[data-theme="dark"] .avatar::after {
+  opacity: 0.5;
+}
 </style>
 </head>
 <body>
 <div class="grund" aria-hidden="true"><span class="k1"></span><span class="k2"></span><span class="k3"></span></div>
 <header class="kopf">
-  <a class="marke" href="/fr/" aria-label="heimwärts, Page d’accueil"><svg width="34" height="34" viewBox="0 0 120 120" aria-hidden="true"><path class="l-haus" pathLength="1" d="M14 58 L58 20 L102 58 M26 48 V104 H90 V48" stroke="#14213D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="l-laecheln" pathLength="1" d="M43 76 Q58 90 73 76" stroke="#14213D" stroke-width="8" stroke-linecap="round" fill="none"/><path class="l-herz" d="M98 42 C 84 32 78 24 82 15 C 85 8 94 7 98 14 C 102 7 111 8 114 15 C 118 24 112 32 98 42 Z" fill="#2EC4B6" stroke="#14213D" stroke-width="3" stroke-linejoin="round"/></svg><span>heimwärts</span></a>
+  <a class="marke" href="/fr/" aria-label="heimwärts, Page d’accueil"><svg width="34" height="34" viewBox="0 0 120 120" aria-hidden="true"><path class="l-haus" pathLength="1" d="M14 58 L58 20 L102 58 M26 48 V104 H90 V48" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path class="l-laecheln" pathLength="1" d="M43 76 Q58 90 73 76" stroke="currentColor" stroke-width="8" stroke-linecap="round" fill="none"/><path class="l-herz" d="M98 42 C 84 32 78 24 82 15 C 85 8 94 7 98 14 C 102 7 111 8 114 15 C 118 24 112 32 98 42 Z" fill="#2EC4B6" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><span>heimwärts</span></a>
   <div class="kopf-rechts">
     <nav class="sprachen" aria-label="Langue"><a href="/team/" lang="de" hreflang="de" title="Deutsch">DE</a><span aria-current="true">FR</span><a href="/it/team/" lang="it" hreflang="it" title="Italiano">IT</a><a href="/en/team/" lang="en" hreflang="en" title="English">EN</a></nav>
     <details class="menue">
@@ -1634,6 +1905,7 @@ p {
       <p class="klein-titel">Informations légales</p>
       <div class="klein-links"><a href="/fr/nutzung/">CG et conditions d’utilisation</a><a href="/fr/datenschutz/">Protection des données</a><a href="/fr/impressum/">Mentions légales</a></div>
       <div class="menue-sprachen"><a href="/team/" lang="de" hreflang="de" title="Deutsch">DE</a><span aria-current="true">FR</span><a href="/it/team/" lang="it" hreflang="it" title="Italiano">IT</a><a href="/en/team/" lang="en" hreflang="en" title="English">EN</a></div>
+      <button type="button" class="thema-zeile" role="switch" aria-checked="false"><span class="links"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5 A8 8 0 1 1 9.5 4 A6.5 6.5 0 0 0 20 14.5 Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>Mode sombre</span><span class="regler" aria-hidden="true"></span></button>
     </nav>
   </details>
   </div>
@@ -1717,6 +1989,34 @@ p {
     if (kugel) kugel.style.animationDelay = -(jetzt % (k[1] * 2)) + 's';
   });
   html.classList.remove('ohne-js');
+
+  // Hell / Dunkel: folgt dem Gerät, bis man im Menü selbst wählt
+  const themaKnopf = document.querySelector('.thema-zeile');
+  const geraetDunkel = window.matchMedia('(prefers-color-scheme: dark)');
+  const istDunkel = () => (html.dataset.theme ? html.dataset.theme === 'dark' : geraetDunkel.matches);
+  const themaAnzeigen = () => {
+    if (themaKnopf) themaKnopf.setAttribute('aria-checked', String(istDunkel()));
+  };
+  themaAnzeigen();
+  geraetDunkel.addEventListener('change', themaAnzeigen);
+  if (themaKnopf) {
+    themaKnopf.addEventListener('click', function () {
+      const neu = istDunkel() ? 'light' : 'dark';
+      const wechseln = () => {
+        html.dataset.theme = neu;
+        themaAnzeigen();
+      };
+      try {
+        localStorage.setItem('hw-thema', neu);
+      } catch {
+        // ohne Speicher gilt die Wahl nur für diese Seite
+      }
+      // Sanft überblenden, wo der Browser das kann
+      if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.startViewTransition(wechseln);
+      } else wechseln();
+    });
+  }
 
   // Menü: schliesst bei Klick daneben, auf einen Link oder mit Esc
   const menue = document.querySelector('.menue');
