@@ -1603,13 +1603,44 @@ p {
 .hero-text .bald {
   margin-top: 14px;
 }
-/* Kopfzeile mit Menü liegt über dem Inhalt */
+/* Kopfzeile mit Menü bleibt beim Scrollen oben und schwebt dann als Glas-Leiste */
 .kopf {
-  position: relative;
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
   z-index: 30;
+  transition: padding 0.3s ease;
+}
+.kopf::before {
+  content: '';
+  position: absolute;
+  inset: 6px max(6px, calc(env(safe-area-inset-left) - 10px));
+  z-index: -1;
+  border-radius: 999px;
+  background: #fafdfd;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px rgba(20, 33, 61, 0.12);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  pointer-events: none;
+}
+.kopf.schwebt {
+  padding-block: 12px;
+}
+.kopf.schwebt::before {
+  opacity: 1;
+  transform: none;
+}
+.kopf.schwebt .sprachen,
+.kopf.schwebt .menue > summary {
+  box-shadow: none;
 }
 .menue-feld {
-  background: rgba(255, 255, 255, 0.96);
+  background: #ffffff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 .demo-bereich h1 {
   font-size: clamp(32px, 5vw, 48px);
@@ -1813,7 +1844,7 @@ p {
   background: rgba(255, 255, 255, 0.12);
 }
 :root:not([data-theme="light"]) .menue-feld {
-  background: rgba(18, 28, 48, 0.96);
+  background: #121c30;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
 :root:not([data-theme="light"]) .menue-feld a:hover,
@@ -1837,6 +1868,11 @@ p {
 }
 :root:not([data-theme="light"]) .avatar::after {
   opacity: 0.5;
+}
+:root:not([data-theme="light"]) .kopf::before {
+  background: #10192c;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 }
@@ -1914,7 +1950,7 @@ p {
   background: rgba(255, 255, 255, 0.12);
 }
 :root[data-theme="dark"] .menue-feld {
-  background: rgba(18, 28, 48, 0.96);
+  background: #121c30;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
 :root[data-theme="dark"] .menue-feld a:hover,
@@ -1939,8 +1975,13 @@ p {
 :root[data-theme="dark"] .avatar::after {
   opacity: 0.5;
 }
+:root[data-theme="dark"] .kopf::before {
+  background: #10192c;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"heimwärts","url":"https://heimwaerts-app.ch/","logo":"https://heimwaerts-app.ch/signatur/heimwaerts-logo.png","email":"info@heimwaerts-app.ch","sameAs":["https://www.instagram.com/heimwaertsapp","https://www.facebook.com/heimwaertsapp","https://www.linkedin.com/company/heimwaertsapp","https://www.youtube.com/@heimwaertsapp","https://www.threads.net/@heimwaertsapp","https://x.com/heimwaertsapp","https://www.pinterest.com/heimwaertsapp"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"heimwärts","url":"https://heimwaerts-app.ch/","logo":"https://heimwaerts-app.ch/signatur/heimwaerts-logo.png","email":"info@heimwaerts-app.ch","sameAs":["https://www.instagram.com/heimwaertsapp","https://www.linkedin.com/company/heimwaertsapp","https://www.youtube.com/@heimwaertsapp","https://www.threads.net/@heimwaertsapp","https://x.com/heimwaertsapp","https://www.pinterest.com/heimwaertsapp"]}</script>
 </head>
 <body>
 <div class="grund" aria-hidden="true"><span class="k1"></span><span class="k2"></span><span class="k3"></span></div>
@@ -2002,7 +2043,7 @@ p {
 <footer class="fuss">
   <div class="social">
     <span>Folge uns</span>
-    <nav aria-label="Folge uns"><a href="https://www.instagram.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Instagram" title="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3.5 H16.5 A4 4 0 0 1 20.5 7.5 V16.5 A4 4 0 0 1 16.5 20.5 H7.5 A4 4 0 0 1 3.5 16.5 V7.5 A4 4 0 0 1 7.5 3.5 Z M12 8.2 A3.8 3.8 0 1 0 12 15.8 A3.8 3.8 0 1 0 12 8.2 Z M17 6.9 V7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.facebook.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Facebook" title="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3.5 H17 V7 H15 A1 1 0 0 0 14 8 V10.5 H17 L16.5 14 H14 V21 H10.5 V14 H8 V10.5 H10.5 V7.5 A4 4 0 0 1 14.5 3.5 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/company/heimwaertsapp" target="_blank" rel="me noopener" aria-label="LinkedIn" title="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.5 H18.5 A2 2 0 0 1 20.5 5.5 V18.5 A2 2 0 0 1 18.5 20.5 H5.5 A2 2 0 0 1 3.5 18.5 V5.5 A2 2 0 0 1 5.5 3.5 Z M8 10.5 V16.5 M8 7.5 V7.6 M11.5 16.5 V10.5 M11.5 13 A2.5 2.5 0 0 1 16.5 13 V16.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.youtube.com/@heimwaertsapp" target="_blank" rel="me noopener" aria-label="YouTube" title="YouTube"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5 H18 A3.5 3.5 0 0 1 21.5 9 V15 A3.5 3.5 0 0 1 18 18.5 H6 A3.5 3.5 0 0 1 2.5 15 V9 A3.5 3.5 0 0 1 6 5.5 Z M10 9 L15 12 L10 15 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.threads.net/@heimwaertsapp" target="_blank" rel="me noopener" aria-label="Threads" title="Threads"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 11 C16 7.5 13.5 6.5 11.5 6.8 C8.6 7.2 7.5 9.8 7.5 12 C7.5 15.5 9.5 17.5 12.5 17.5 C15 17.5 17 16 17 13.8 C17 11.8 15.3 11 13.5 11 C11.5 11 10.2 12 10.2 13.3 C10.2 14.6 11.4 15.2 12.5 15.1 C14.3 15 15.3 13.6 15.3 11.5 M12 21 A9 9 0 1 1 21 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://x.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="X" title="X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4 L19.5 20 M19.5 4 L4.5 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.pinterest.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Pinterest" title="Pinterest"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 A8.5 8.5 0 1 0 12 20.5 A8.5 8.5 0 1 0 12 3.5 Z M10.5 20 L12.2 13 M11 13.5 C12.5 15 16 14 16 10.5 C16 8 14 6.8 12 6.8 C9.5 6.8 8 8.5 8 10.3 C8 11.3 8.4 12 9 12.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav>
+    <nav aria-label="Folge uns"><a href="https://www.instagram.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Instagram" title="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3.5 H16.5 A4 4 0 0 1 20.5 7.5 V16.5 A4 4 0 0 1 16.5 20.5 H7.5 A4 4 0 0 1 3.5 16.5 V7.5 A4 4 0 0 1 7.5 3.5 Z M12 8.2 A3.8 3.8 0 1 0 12 15.8 A3.8 3.8 0 1 0 12 8.2 Z M17 6.9 V7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.linkedin.com/company/heimwaertsapp" target="_blank" rel="me noopener" aria-label="LinkedIn" title="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 3.5 H18.5 A2 2 0 0 1 20.5 5.5 V18.5 A2 2 0 0 1 18.5 20.5 H5.5 A2 2 0 0 1 3.5 18.5 V5.5 A2 2 0 0 1 5.5 3.5 Z M8 10.5 V16.5 M8 7.5 V7.6 M11.5 16.5 V10.5 M11.5 13 A2.5 2.5 0 0 1 16.5 13 V16.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.youtube.com/@heimwaertsapp" target="_blank" rel="me noopener" aria-label="YouTube" title="YouTube"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5 H18 A3.5 3.5 0 0 1 21.5 9 V15 A3.5 3.5 0 0 1 18 18.5 H6 A3.5 3.5 0 0 1 2.5 15 V9 A3.5 3.5 0 0 1 6 5.5 Z M10 9 L15 12 L10 15 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.threads.net/@heimwaertsapp" target="_blank" rel="me noopener" aria-label="Threads" title="Threads"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 11 C16 7.5 13.5 6.5 11.5 6.8 C8.6 7.2 7.5 9.8 7.5 12 C7.5 15.5 9.5 17.5 12.5 17.5 C15 17.5 17 16 17 13.8 C17 11.8 15.3 11 13.5 11 C11.5 11 10.2 12 10.2 13.3 C10.2 14.6 11.4 15.2 12.5 15.1 C14.3 15 15.3 13.6 15.3 11.5 M12 21 A9 9 0 1 1 21 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://x.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="X" title="X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4 L19.5 20 M19.5 4 L4.5 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="https://www.pinterest.com/heimwaertsapp" target="_blank" rel="me noopener" aria-label="Pinterest" title="Pinterest"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 A8.5 8.5 0 1 0 12 20.5 A8.5 8.5 0 1 0 12 3.5 Z M10.5 20 L12.2 13 M11 13.5 C12.5 15 16 14 16 10.5 C16 8 14 6.8 12 6.8 C9.5 6.8 8 8.5 8 10.3 C8 11.3 8.4 12 9 12.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></nav>
   </div>
   <nav><a href="/nutzung/">AGB und Nutzungsbedingungen</a><a href="/datenschutz/">Datenschutz</a><a href="/impressum/">Impressum</a><a href="mailto:info@heimwaerts-app.ch">Kontakt</a></nav>
   <p>Startup in Entwicklung · Kein offizielles Angebot · © 2026 heimwärts</p>
@@ -2050,6 +2091,14 @@ p {
         document.startViewTransition(wechseln);
       } else wechseln();
     });
+  }
+
+  // Kopfzeile: sobald man scrollt, schwebt sie als Glas-Leiste mit
+  const kopf = document.querySelector('.kopf');
+  if (kopf) {
+    const pruefen = () => kopf.classList.toggle('schwebt', window.scrollY > 8);
+    pruefen();
+    window.addEventListener('scroll', pruefen, { passive: true });
   }
 
   // Menü: schliesst bei Klick daneben, auf einen Link oder mit Esc
