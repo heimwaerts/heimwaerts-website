@@ -1603,39 +1603,44 @@ p {
 .hero-text .bald {
   margin-top: 14px;
 }
-/* Kopfzeile mit Menü bleibt beim Scrollen oben und schwebt dann als Glas-Leiste */
+/* Kopfzeile: am Computer normal oben. Auf dem Handy bleibt sie beim Scrollen oben und schwebt als Leiste */
 .kopf {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
+  position: relative;
   z-index: 30;
-  transition: padding 0.3s ease;
 }
-.kopf::before {
-  content: '';
-  position: absolute;
-  inset: 6px max(6px, calc(env(safe-area-inset-left) - 10px));
-  z-index: -1;
-  border-radius: 999px;
-  background: #fafdfd;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 30px rgba(20, 33, 61, 0.12);
-  opacity: 0;
-  transform: translateY(-6px) scale(0.98);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-  pointer-events: none;
-}
-.kopf.schwebt {
-  padding-block: 12px;
-}
-.kopf.schwebt::before {
-  opacity: 1;
-  transform: none;
-}
-.kopf.schwebt .sprachen,
-.kopf.schwebt .menue > summary {
-  box-shadow: none;
+@media (max-width: 560px) {
+  .kopf {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    transition: padding 0.3s ease;
+  }
+  .kopf::before {
+    content: '';
+    position: absolute;
+    inset: 6px max(6px, calc(env(safe-area-inset-left) - 10px));
+    z-index: -1;
+    border-radius: 999px;
+    background: #fafdfd;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 10px 30px rgba(20, 33, 61, 0.12);
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    pointer-events: none;
+  }
+  .kopf.schwebt {
+    padding-block: 12px;
+  }
+  .kopf.schwebt::before {
+    opacity: 1;
+    transform: none;
+  }
+  .kopf.schwebt .sprachen,
+  .kopf.schwebt .menue > summary {
+    box-shadow: none;
+  }
 }
 .menue-feld {
   background: #ffffff;
